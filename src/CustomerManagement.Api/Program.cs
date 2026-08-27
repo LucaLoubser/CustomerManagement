@@ -6,6 +6,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services
+            .AddApplication(builder.Configuration)
             .AddInfrastructure(builder.Configuration);
 
         builder.Services.AddProblemDetails();
@@ -18,6 +19,7 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+            app.UseSwaggerUI(o => o.SwaggerEndpoint("/openapi/v1.json", "CustomerManagement v1"));
         }
 
         app.UseHttpsRedirection();

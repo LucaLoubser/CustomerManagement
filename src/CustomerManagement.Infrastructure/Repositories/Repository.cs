@@ -18,7 +18,7 @@ public class Repository<T> : IRepository<T> where T : class
     public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
     {
         await _dbSet.AddAsync(entity, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await SaveChangesAsync(cancellationToken);
         return entity;
     }
 
@@ -28,7 +28,7 @@ public class Repository<T> : IRepository<T> where T : class
             ?? throw new KeyNotFoundException();
 
         _dbSet.Remove(entity);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await SaveChangesAsync(cancellationToken);
     }
 
     public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, CancellationToken cancellationToken = default)
@@ -45,9 +45,14 @@ public class Repository<T> : IRepository<T> where T : class
         return await _dbSet.FindAsync([id], cancellationToken: cancellationToken);
     }
 
-    public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
+    public async Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
     {
         _dbSet.Update(entity);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await SaveChangesAsync(cancellationToken);
+        return entity;
+    }
+
+    protected virtual Task<int> SaveChangesAsync(CancellationToken cancellationToken = default){
+        return _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
