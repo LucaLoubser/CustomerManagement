@@ -23,9 +23,9 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
 
     public async Task<CustomerDto> Handle(CreateCustomerCommand command, CancellationToken cancellationToken)
     {
-        var existingCustomer = await _customerRepository
-            .CheckIfEmailExistsAsync(command.Email, cancellationToken);
-        if (existingCustomer)
+        var duplicateEmailExists = await _customerRepository
+            .CheckIfEmailExistsAsync(command.Email, null, cancellationToken);
+        if (duplicateEmailExists)
         {
             throw new DuplicateEmailException(command.Email);
         }

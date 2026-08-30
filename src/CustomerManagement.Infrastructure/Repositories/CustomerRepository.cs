@@ -15,10 +15,13 @@ public class CustomerRepository : Repository<Customer>, ICustomerRepository
         _dbContext = dbContext;
     }
 
-    public async Task<bool> CheckIfEmailExistsAsync(string email, CancellationToken cancellationToken = default)
+    public async Task<bool> CheckIfEmailExistsAsync(string email, Guid? excludeId, CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Customers
-            .AnyAsync(x => x.Email == email, cancellationToken);
+        var query = _dbContext.Customers.AsNoTracking();
+        if(excludeId != null){
+            query = query.Where(c => c.Id != excludeId);
+        }
+        return await query.AnyAsync(x => x.Email == email, cancellationToken);
     }
 
     protected override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

@@ -20,4 +20,13 @@ public class CustomerManagementController(
         var result = await _mediator.Send(new CreateCustomerCommand(request.FirstName, request.LastName, request.Email, request.PhoneNumber), cancellationToken);
         return Ok(result);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateAsync(
+        [FromRoute] Guid id,
+        [FromQuery] UpdateCustomerRequestDto request, CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new UpdateCustomerCommand(id, request.FirstName, request.LastName, request.Email, request.PhoneNumber), cancellationToken);
+        return Ok(result);
+    }
 }
