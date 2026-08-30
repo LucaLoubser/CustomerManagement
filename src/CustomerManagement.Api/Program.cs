@@ -1,4 +1,3 @@
-
 public class Program
 {
     private static void Main(string[] args)
@@ -6,12 +5,9 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services
+            .AddApi(builder.Configuration)
             .AddApplication(builder.Configuration)
             .AddInfrastructure(builder.Configuration);
-
-        builder.Services.AddProblemDetails();
-        builder.Services.AddControllers();
-        builder.Services.AddOpenApi();
 
         var app = builder.Build();
         app.MapControllers();
@@ -23,6 +19,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseExceptionHandler();
         app.MapControllers();
 
         app.Run();

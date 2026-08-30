@@ -1,4 +1,6 @@
 using CustomerManagement.Application;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +13,7 @@ public static class DependencyInjection
         {
             cfg.RegisterServicesFromAssemblies(
                 typeof(IApplicationMarker).Assembly);
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
             cfg.LicenseKey = configuration["MediatRLicenseKey"];
         });
 
@@ -19,6 +22,9 @@ public static class DependencyInjection
             cfg.LicenseKey = configuration["AutoMapperLicenseKey"];
             cfg.AddMaps(typeof(IApplicationMarker).Assembly);
         });
+
+        services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         return services;
     }
