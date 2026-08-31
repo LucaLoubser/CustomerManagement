@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Customer, PagedResult } from './models';
+import { CreateCustomer, Customer, PagedResult } from './models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,5 +29,12 @@ export class CustomersService {
 
     return this.http
       .get<PagedResult<Customer>>(this.baseUrl, { params });
+  }
+
+  createCustomer(
+    body: CreateCustomer
+  ): Observable<Customer> {
+    return this.http
+      .post<Customer>(this.baseUrl, body);
   }
 }

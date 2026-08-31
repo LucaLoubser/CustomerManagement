@@ -6,18 +6,31 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomerListComponent } from './components/customer-list/customer-list.component';
-
+import { CreateCustomerComponent } from './components/create-customer/create-customer.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
-    CustomerListComponent
+    CustomerListComponent,
+    CreateCustomerComponent
   ],
   imports: [
     CommonModule,
     CustomersRoutingModule,
     MatTableModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule
   ]
 })
 export class CustomersModule { }

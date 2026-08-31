@@ -1,0 +1,42 @@
+<h2 mat-dialog-title>Create Customer</h2>
+
+<form [formGroup]="createCustomerForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" />
+      <mat-error *ngIf="createCustomerForm.controls.firstName.hasError('required')">
+        First name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" />
+      <mat-error *ngIf="createCustomerForm.controls.lastName.hasError('required')">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="createCustomerForm.controls.email.hasError('required')">
+        Email is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput type="tel" formControlName="phoneNumber" />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <button mat-button type="button" mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit"
+      [disabled]="createCustomerForm.invalid || isSaving"> Save
+    </button>
+  </mat-dialog-actions>
+
+</form>

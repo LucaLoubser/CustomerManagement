@@ -1,5 +1,8 @@
 <div class="customer-list">
-  <h2>Customers</h2>
+  <div class="customer-list-header">
+      <h2>Customers</h2>
+      <button mat-raised-button type="button" color="primary" (click)="openCreateDialog()">Create Customer</button>
+  </div>
 
   <mat-progress-bar
     *ngIf="isLoading"

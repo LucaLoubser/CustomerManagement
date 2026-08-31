@@ -3,6 +3,8 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { CustomersService } from '../../customers.service';
 import { Customer } from '../../models';
+import { CreateCustomerComponent } from '../create-customer/create-customer.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-customer-list',
@@ -20,10 +22,22 @@ export class CustomerListComponent implements OnInit {
   pageSize = 20;
   isLoading = false;
 
-  constructor(private customersService: CustomersService) { }
+  constructor(
+    private customersService: CustomersService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.loadPage();
+  }
+
+  openCreateDialog(): void {
+    this.dialog
+      .open(CreateCustomerComponent, { width: '360px', disableClose: true })
+      .afterClosed()
+      .subscribe(created => {
+        if (created) { this.loadPage(); }
+      });
   }
 
   onPageChange(event: PageEvent): void {
