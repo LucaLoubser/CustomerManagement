@@ -11,6 +11,15 @@ public static class DependencyInjection
             .ReadFrom.Services(sp)
             .WriteTo.Console());
 
+        var frontendUrl = configuration["CustomerManagementWebUrl"] ??
+            throw new ArgumentNullException(nameof(configuration));
+
+        services.AddCors(options =>
+            options.AddPolicy("AngularDev", policy => policy
+            .WithOrigins(frontendUrl)
+            .AllowAnyHeader()
+            .AllowAnyMethod()));
+
         services.AddProblemDetails();
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddControllers();

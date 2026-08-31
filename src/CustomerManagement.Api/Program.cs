@@ -16,6 +16,7 @@ public class Program
         {
             app.MapOpenApi();
             app.UseSwaggerUI(o => o.SwaggerEndpoint("/openapi/v1.json", "CustomerManagement v1"));
+            app.UseCors("AngularDev");
         }
 
         app.UseHttpsRedirection();
