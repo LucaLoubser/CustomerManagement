@@ -1,0 +1,13 @@
+.customer-list {
+  padding: 24px;
+}
+
+.customer-table {
+  width: 100%;
+}
+
+.no-data td {
+  padding: 16px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+}
