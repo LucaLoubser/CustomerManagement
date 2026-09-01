@@ -37,4 +37,11 @@ export class CustomersService {
     return this.http
       .post<Customer>(this.baseUrl, body);
   }
+
+  deleteCustomer(
+    id: string
+  ): Observable<void> {
+    return this.http
+      .delete<void>(`${this.baseUrl}/${id}`);
+  }
 }

@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedRoutingModule } from '../shared-routing.module';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ConfirmationModalComponent
+  ],
   imports: [
     CommonModule,
-    SharedRoutingModule
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class SharedModule { }
