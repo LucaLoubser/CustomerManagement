@@ -3,7 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { CustomersService } from '../../customers.service';
 import { Customer } from '../../models';
-import { CreateCustomerComponent } from '../create-customer/create-customer.component';
+import { CustomerModalComponent } from '../customer-modal/customer-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { toErrorMessage } from 'src/app/shared/problem-details.utils';
@@ -38,7 +38,7 @@ export class CustomerListComponent implements OnInit {
 
   openCreateDialog(): void {
     this.dialog
-      .open(CreateCustomerComponent, { width: '360px', disableClose: true })
+      .open(CustomerModalComponent, { width: '360px', disableClose: true })
       .afterClosed()
       .subscribe(created => {
         if (created) { this.loadPage(); }
@@ -93,7 +93,7 @@ export class CustomerListComponent implements OnInit {
   confirmDelete(customer: Customer) : void {
     var confirmationModalData = {
       title: "Delete Customer",
-      message: `Do you want to delete ${customer.firstName} ${customer.lastName} - ${customer.email} ?`,
+      message: `You are about to delete ${customer.firstName} ${customer.lastName} - ${customer.email} ?`,
       confirmText: "Delete",
       cancelText: "Cancel"
     }
@@ -105,6 +105,25 @@ export class CustomerListComponent implements OnInit {
       if(confirmed == true)
         this.deleteCustomer(customer.id);
     });
+  }
 
+  editCustomer(id: string): void {
+    this.customersService.getCustomerById(id)
+      .subscribe({
+        next: (customer: Customer) => {
+          this.dialog
+          .open(CustomerModalComponent, { width: '360px', disableClose: true, data: customer})
+          .afterClosed()
+          .subscribe(updated => {
+            if (updated)
+              this.loadPage();
+          });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.snackBar.open(toErrorMessage(err), 'Dismiss', {
+            duration: 6000,
+            panelClass: 'snack-error'
+          });
+      }});
   }
 }

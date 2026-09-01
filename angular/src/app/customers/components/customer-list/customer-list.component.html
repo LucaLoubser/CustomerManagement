@@ -39,6 +39,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let customer" class="actions-cell">
+        <mat-icon color="primary" (click)="editCustomer(customer.id)">edit</mat-icon>
         <mat-icon color="warn" (click)="confirmDelete(customer)">delete</mat-icon>
       </td>
     </ng-container>

@@ -14,6 +14,13 @@ export class CustomersService {
     private http: HttpClient
   ){}
 
+  getCustomerById(
+    id: string,
+  ): Observable<Customer> {
+    return this.http
+      .get<Customer>(`${this.baseUrl}/${id}`);
+  }
+
   getPagedCustomerList(
     pageNumber = 1,
     pageSize = 20,
@@ -43,5 +50,13 @@ export class CustomersService {
   ): Observable<void> {
     return this.http
       .delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  updateCustomer(
+    id: string,
+    body: CreateCustomer
+  ): Observable<Customer> {
+    return this.http
+      .put<Customer>(`${this.baseUrl}/${id}`, body);
   }
 }
