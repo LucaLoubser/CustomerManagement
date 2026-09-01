@@ -1,4 +1,4 @@
-using CustomerManagement.Api.Middleware;
+using CustomerManagement.Api.Exceptions;
 using Serilog;
 
 public static class DependencyInjection

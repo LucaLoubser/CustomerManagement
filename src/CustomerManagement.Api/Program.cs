@@ -1,3 +1,5 @@
+using CustomerManagement.Api.Middleware;
+
 public class Program
 {
     private static void Main(string[] args)
@@ -21,6 +23,7 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseExceptionHandler();
+        app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
         app.MapControllers();
 
         app.Run();

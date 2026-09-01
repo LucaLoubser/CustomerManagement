@@ -2,7 +2,7 @@ using CustomerManagement.Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using FluentValidation;
 
-namespace CustomerManagement.Api.Middleware;
+namespace CustomerManagement.Api.Exceptions;
 
 public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
