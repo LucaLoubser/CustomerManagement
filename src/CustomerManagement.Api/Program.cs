@@ -12,12 +12,11 @@ public class Program
             .AddInfrastructure(builder.Configuration);
 
         var app = builder.Build();
-        app.MapControllers();
 
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi();
-            app.UseSwaggerUI(o => o.SwaggerEndpoint("/openapi/v1.json", "CustomerManagement v1"));
+            app.UseSwagger();
+            app.UseSwaggerUI(o => o.SwaggerEndpoint("/swagger/v1/swagger.json", "CustomerManagement v1"));
             app.UseCors("AngularDev");
         }
 

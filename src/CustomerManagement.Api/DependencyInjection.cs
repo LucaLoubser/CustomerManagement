@@ -1,4 +1,5 @@
 using CustomerManagement.Api.Exceptions;
+using Microsoft.OpenApi;
 using Serilog;
 
 public static class DependencyInjection
@@ -20,10 +21,25 @@ public static class DependencyInjection
             .AllowAnyHeader()
             .AllowAnyMethod()));
 
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerManagement", Version = "v1" });
+            c.AddSecurityDefinition("apiKey", new OpenApiSecurityScheme
+            {
+                Description = "Enter your API Key.",
+                Name = "X-API-Key",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+            });
+            c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+            {
+                { new OpenApiSecuritySchemeReference("apiKey", document), new List<string>() }
+            });
+        });
+
         services.AddProblemDetails();
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddControllers();
-        services.AddOpenApi();
 
         return services;
     }

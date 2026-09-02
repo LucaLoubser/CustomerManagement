@@ -15,15 +15,20 @@ public class ApiKeyAuthenticationMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        if(context.Request.Headers.TryGetValue("X-API-Key", out var headerApiKey))
+        if (context.Request.Path.StartsWithSegments("/swagger"))
         {
-            var configApiKey = _configuration["ApiKey"]
-                ?? throw new InvalidOperationException("ApiKey not set");
+            await _next(context);
+            return;
+        }
 
-            if(headerApiKey != configApiKey){
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                return;
-            }
+        var configApiKey = _configuration["ApiKey"]
+            ?? throw new InvalidOperationException("ApiKey not set");
+
+        if(!context.Request.Headers.TryGetValue("X-API-Key", out var headerApiKey)
+            || headerApiKey != configApiKey)
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return;
         }
 
         await _next(context);
