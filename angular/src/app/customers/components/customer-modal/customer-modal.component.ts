@@ -14,11 +14,12 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
   styleUrls: ['./customer-modal.component.css'],
 })
 export class CustomerModalComponent {
+
   createCustomerForm = new FormGroup({
     firstName: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
     lastName: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    email: new FormControl('', {nonNullable: true, validators: [Validators.required]}),
-    phoneNumber:new FormControl(''),
+    email: new FormControl('', {nonNullable: true, validators: [Validators.required, Validators.email]}),
+    phoneNumber: new FormControl('', Validators.pattern(/^\+?[0-9\s\-()]{7,20}$/)),
   });
 
   constructor(

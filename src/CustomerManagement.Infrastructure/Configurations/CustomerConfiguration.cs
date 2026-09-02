@@ -13,6 +13,9 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         builder.Property(c => c.LastName).HasMaxLength(32).IsRequired();
         builder.Property(c => c.Email).HasMaxLength(256).IsRequired();
         builder.Property(c => c.PhoneNumber).HasMaxLength(32);
+        builder.Property(c => c.CreatedDate).HasConversion(
+                v => v,
+                v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
 
         builder.HasIndex(c => c.Email)
             .IsUnique()

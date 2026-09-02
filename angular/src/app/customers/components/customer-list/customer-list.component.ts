@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { toErrorMessage } from 'src/app/shared/problem-details.utils';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
+import { FormControl } from '@angular/forms';
+import { debounceTime, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-customer-list',
@@ -18,6 +20,9 @@ import { ConfirmationModalComponent } from 'src/app/shared/components/confirmati
 export class CustomerListComponent implements OnInit {
   readonly displayedColumns = ['firstName', 'lastName', 'email', 'phoneNumber', 'createdDate', 'actions'];
   readonly pageSizeOptions = [10, 20, 50];
+
+  searchFormControl = new FormControl('');
+  private destroy$ = new Subject<void>();
 
   dataSource: Customer[] = [];
 
@@ -34,6 +39,13 @@ export class CustomerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPage();
+
+    this.searchFormControl.valueChanges
+      .pipe(debounceTime(800), takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.pageNumber = 1;
+        this.loadPage();
+      });
   }
 
   openCreateDialog(): void {
@@ -55,7 +67,7 @@ export class CustomerListComponent implements OnInit {
     this.isLoading = true;
 
     this.customersService
-      .getPagedCustomerList(this.pageNumber, this.pageSize)
+      .getPagedCustomerList(this.pageNumber, this.pageSize, this.searchFormControl.value ?? '')
       .subscribe({
         next: result => {
           this.dataSource = result.items;
