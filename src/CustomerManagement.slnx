@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../tests/CustomerManagement.Application.Tests/CustomerManagement.Application.Tests.csproj" />
   <Project Path="CustomerManagement.Api/CustomerManagement.Api.csproj" />
   <Project Path="CustomerManagement.Application/CustomerManagement.Application.csproj" />
   <Project Path="CustomerManagement.Domain/CustomerManagement.Domain.csproj" />
