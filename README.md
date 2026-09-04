@@ -23,7 +23,9 @@
 
 #### Running DB Migrations
 1. cd ..\\
-2. dotnet ef database update --project CustomerManagement.Infrastructure --startup-project CustomerManagement.Api
+2. $env:ASPNETCORE_ENVIRONMENT = "Development"
+3. dotnet build
+4. dotnet ef database update --project CustomerManagement.Infrastructure --startup-project CustomerManagement.Api
 
 #### Running the API
 (from src directory)
@@ -36,7 +38,7 @@ api swagger available at https://localhost:7120/swagger/index.html
 ### Running Frontend
 1. cd angular
 2. npm install
-3. ng serve
+3. npm start
 
 frontend available at: http://localhost:4200
 
