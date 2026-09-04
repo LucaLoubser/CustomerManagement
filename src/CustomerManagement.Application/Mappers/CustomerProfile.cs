@@ -1,6 +1,6 @@
 using AutoMapper;
 using CustomerManagement.Application.Commands;
-using CustomerManagement.Application.Contracts.Customer;
+using CustomerManagement.Application.Contracts.Responses;
 using CustomerManagement.Domain.Entities;
 
 namespace CustomerManagement.Application.Mapping;

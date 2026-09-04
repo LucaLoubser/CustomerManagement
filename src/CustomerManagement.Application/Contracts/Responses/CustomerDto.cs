@@ -1,4 +1,4 @@
-namespace CustomerManagement.Application.Contracts.Customer;
+namespace CustomerManagement.Application.Contracts.Responses;
 
 public record CustomerDto
 {

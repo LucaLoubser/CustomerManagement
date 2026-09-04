@@ -1,7 +1,7 @@
 using CustomerManagement.Application.Commands;
-using CustomerManagement.Application.Contacts.Common;
-using CustomerManagement.Application.Contacts.Requests;
-using CustomerManagement.Application.Contracts.Customer;
+using CustomerManagement.Application.Contracts.Common;
+using CustomerManagement.Application.Contracts.Requests;
+using CustomerManagement.Application.Contracts.Responses;
 using CustomerManagement.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

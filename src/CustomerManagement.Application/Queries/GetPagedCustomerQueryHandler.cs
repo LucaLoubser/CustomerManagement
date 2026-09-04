@@ -1,8 +1,8 @@
 using AutoMapper;
-using CustomerManagement.Application.Contacts.Common;
-using CustomerManagement.Application.Contracts.Customer;
+using CustomerManagement.Application.Contracts.Responses;
 using CustomerManagement.Domain.Repositories;
 using MediatR;
+using CustomerManagement.Application.Contracts.Common;
 
 namespace CustomerManagement.Application.Queries;
 

@@ -1,6 +1,3 @@
-using AutoMapper;
-using CustomerManagement.Application.Contracts.Customer;
-using CustomerManagement.Domain.Entities;
 using CustomerManagement.Domain.Exceptions;
 using CustomerManagement.Domain.Repositories;
 using MediatR;
